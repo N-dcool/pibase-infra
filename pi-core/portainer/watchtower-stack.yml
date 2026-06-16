@@ -1,0 +1,19 @@
+# —— Watchtower – Portainer Stack ——
+# Auto-updates Docker containers when new images are pushed to DockerHub.
+# Only updates containers with label: com.centurylinklabs.watchtower.enable=true
+#
+# Portainer → Stacks → Add Stack → paste this
+# No environment variables needed.
+
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    environment:
+      - WATCHTOWER_LABEL_ENABLE=true   # Only update containers with the label
+      - WATCHTOWER_POLL_INTERVAL=300   # Check DockerHub every 5 minutes
+      - WATCHTOWER_CLEANUP=true        # Remove old images after updating
+      - WATCHTOWER_INCLUDE_STOPPED=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

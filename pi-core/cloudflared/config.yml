@@ -1,0 +1,15 @@
+# —— Cloudflare Tunnel Config ————
+# Location on Pi: ~/.cloudflared/config.yml
+# Tunnel ID: replace with your actual tunnel ID
+#
+# Generate credentials:
+#   cloudflared tunnel create pi-tunnel
+#   cloudflared tunnel route dns pi-tunnel backend.nareshchoudhary.com
+
+tunnel: pi-tunnel
+credentials-file: /home/<nonroot-user>/.cloudflared/xxxxx-xxxx-xxx-xx-xx.json
+
+ingress:
+    - hostname: backend.nareshchoudhary.com
+      service: http://localhost:80
+    - service: http_status:404

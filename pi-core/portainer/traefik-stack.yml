@@ -1,0 +1,32 @@
+# —— Traefik – Portainer Stack ——
+# Reverse proxy – auto-discovers Docker containers via labels.
+#
+# Portainer → Stacks → Add Stack → paste this
+# No environment variables needed.
+#
+# IMPORTANT: Deploy this BEFORE pibase-api stack (creates the proxy network).
+
+services:
+  traefik:
+    image: traefik:v3.4
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      - "--api.dashboard=false"
+      - "--entrypoints.web.address=:80"
+      - "--providers.docker=true"
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.docker.network=proxy"
+      - "--log.level=WARN"
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    name: proxy
+    driver: bridge
