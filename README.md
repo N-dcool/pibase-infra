@@ -39,8 +39,9 @@ No SSH needed. Takes ~5-10 min end to end.
 
 ## Docker 28+ API fix
 
-Docker 28/29 dropped support for API versions below 1.44, which breaks Traefik,
-Watchtower, and Portainer. Run this **once** on the Pi:
+Watchtower uses `nickfedor/watchtower` (actively maintained fork that supports Docker 28+ natively)
+
+Docker 28/29 dropped support for API versions below 1.44, which breaks Traefik and Portainer. For Traefik/Portainer, run this **once** on the Pi:
 
 ```bash
 sudo systemctl edit docker.service
