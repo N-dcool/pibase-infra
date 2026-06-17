@@ -1,10 +1,22 @@
 # Infrastructure Configs
 
 ## What's here
-- **`cloudflare-edge/`** – Worker script that sits between users and the Pi
-- **`pi-core/portainer/`** – 3 Portainer stacks that run on the Pi 
-- **`pi-core/cloudflared/`** – Tunnel config (reference)
+```
 
+infra/
+├── cloudflare-edge/
+│   └── external-worker.js        → Worker script that sits between users and the Pi
+│   
+└── pi-core/
+    ├── portainer/
+    │   ├── traefik-stack.yml
+    │   ├── watchtower-stack.yml
+    │   └── pibase-api-stack.yml
+    |
+    └── cloudflared/
+        └── config.yml   → Tunnel config (reference)
+
+```
 ## How deploys work
 
 ```
