@@ -19,7 +19,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - pibase-data:/app/data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
