@@ -37,6 +37,28 @@ No SSH needed. Takes ~5-10 min end to end.
 - `JWT_SECRET` – run `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`
 - `ALLOWED_ORIGINS` – `https://db.nareshchoudhary.com`
 
+## Docker 28+ API fix
+
+Docker 28/29 dropped support for API versions below 1.44, which breaks Traefik,
+Watchtower, and Portainer. Run this **once** on the Pi:
+
+```bash
+sudo systemctl edit docker.service
+```
+Add:
+
+```ini
+[Service]
+Environment=DOCKER_MIN_API_VERSION=1.24
+```
+
+Then reload:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
 ## Quick check
 ```bash
 curl https://db.nareshchoudhary.com/api/health
