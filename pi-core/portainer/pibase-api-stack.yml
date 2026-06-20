@@ -29,6 +29,7 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
       - JWT_SECRET=${JWT_SECRET}
       - PUBLIC_HOST=db.nareshchoudhary.com
+      - TCP_HOST=${TCP_HOST:-tcp.nareshchoudhary.com}
       - CORS_ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-https://db.nareshchoudhary.com}
     labels:
       # —— Traefik routing ——
