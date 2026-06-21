@@ -1,0 +1,21 @@
+services:
+  haproxy:
+    image: haproxy:2.9-alpine
+    container_name: pibase-haproxy
+    restart: unless-stopped
+    network_mode: host
+
+    volumes:
+      - /opt/pibase/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - /opt/pibase/haproxy/backends.d:/etc/haproxy/backends.d:ro
+      - /opt/pibase/haproxy/certs:/etc/haproxy/certs:ro
+      - /opt/pibase/haproxy/maps:/etc/haproxy/maps:ro
+
+    healthcheck:
+      test: ["CMD", "haproxy", "-c", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
