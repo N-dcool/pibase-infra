@@ -4,6 +4,7 @@ services:
     container_name: pibase-haproxy
     restart: unless-stopped
     network_mode: host
+    command: haproxy -f /usr/local/etc/haproxy/haproxy.cfg -f /etc/haproxy/backends.d/
 
     volumes:
       - /opt/pibase/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
@@ -12,7 +13,7 @@ services:
       - /opt/pibase/haproxy/maps:/etc/haproxy/maps:ro
 
     healthcheck:
-      test: ["CMD", "haproxy", "-c", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
+      test: ["CMD", "haproxy", "-c", "-f", "/usr/local/etc/haproxy/haproxy.cfg", "f", "/etc/haproxy/backends.d/"]
       interval: 30s
       timeout: 5s
       retries: 3
