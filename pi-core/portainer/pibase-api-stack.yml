@@ -20,6 +20,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - pibase-data:/app/data
+      # HAProxy map file - Java writes slug->port entries here
+      - /opt/pibase/haproxy/maps:/opt/pibase/haproxy/maps
+      # HAProxy Runtime API socket - Java sends add/del map commands
+      - /opt/pibase/haproxy/run:/opt/pibase/haproxy/run
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/health"]
       interval: 30s
